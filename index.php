@@ -20,13 +20,12 @@
             $error .= "The email address is invalid.<br>";
         }
 
-        //check if there are errors
 
         if($error != "") {
             $error = '<div class="alert alert-danger" role="alert"><p>There were error(s) in your form:</p>' . $error . '</div>';
         }
         else {  //email address is good!
-            $emailTo = "codestarsjpbaugh@gmail.com";
+            $emailTo = "pashavilich@gmail.com";
             $subject = $_POST['subject'];
             $content = $_POST['content'];
             $headers = "From: " . $_POST['email'];
