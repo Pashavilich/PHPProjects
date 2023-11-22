@@ -10,6 +10,6 @@
 
         mysqli_query($link, $query);
 
-    }//end array key exists
+    }
 
 ?>
