@@ -1,54 +1,71 @@
-<?php
-    $error="";
+<?php 
+    $error = "";
 
-    $successMassage="";
-    if($_POST){
-        if(!$_POST["emeil"]){
-            $error.="An emeil<br>";
+    $successMessage = "";
+
+    if($_POST) {
+        if(!$_POST["email"]) {
+            $error .= "An email address is required<br>";
         }
-        if(!$_POST["content"]){
-            $error.= "The Content<br>";
+
+        if(!$_POST["content"]) {
+            $error .= "The content field is required.<br>";
         }
-        if(!$_POST["subject"]){
-            $error.="The subject<br>";
+
+        if(!$_POST["subject"]) {
+            $error .= "The subject is required.<br>";
         }
-        if(!$_POST["emeil"] && filter_var($_POST["emeil"], FILTER_VALIDATE_EMAIL)=== false) {
-            $error.=" The Emeil 1<br> "; 
+
+        if($_POST["email"] && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) === false) {
+            $error .= "The email address is invalid.<br>";
         }
-        if($error !=""){
-            $error='<div class="alert alert-danger" role="alert"> <p>There were</p>'. $error. '</div>';
+
+        //check if there are errors
+
+        if($error != "") {
+            $error = '<div class="alert alert-danger" role="alert"><p>There were error(s) in your form:</p>' . $error . '</div>';
         }
-        else{
-            $emeilTo = "pashavilich@lector.com";
-            $subject= $_POST['subject'];
+        else {  //email address is good!
+            $emailTo = "codestarsjpbaugh@gmail.com";
+            $subject = $_POST['subject'];
             $content = $_POST['content'];
-            $headers = "From: " . $_POST['emeil'];
-        }
-        if (mail($emeilTo, $subject, $content, $headers)) {
-            $successMassage= '<div class="alert alert-success" role="alert">Your massage' .
+            $headers = "From: " . $_POST['email'];
+
+            //try sending the mail
+            if(mail($emailTo, $subject, $content, $headers)) {
+                $successMessage = '<div class="alert alert-success" role="alert">Your message was sent, ' . 
                                 'we\'ll get back to you ASAP!</div>';
             }
-        else{
-            $error = '<div class="alert alert-danger" role="alert">Your penis</div> ';
-        };
+            else {
+                $error = '<div class="alert alert-danger" role="alert">Your message couldn\'t be sent - try again later</div>';
+            }//end if mail function succeeded or failed
+        }//end else for the if $error != ""
 
-    }
+    }//end if $_POST
+
 ?>
+
+
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body class="conteiner">
-    <div class="container">
-        <h1>Get in touch</h1>
-        <div id="error"><?php echo $error. $successMassage; ?>
-        </div>
-        <form method="post">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+              rel="stylesheet" 
+              integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
+              crossorigin="anonymous">
+
+    </head>
+    <body>
+        <div class="container">
+            <h1>Get in touch!</h1>
+            <div id="error"><?php echo $error.$successMessage; ?></div>
+
+            <form method="post">
                 <fieldset class="form-group">
                     <label for="email">Email address </label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
@@ -66,30 +83,45 @@
                 </fieldset>
 
                 <button type="submit" id="submit" class=" btn btn-primary">Submit</button>
-            </form>
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script text="text/javascript">
-            $("form").submit(function(e){
+            </form><!-- end of the form -->
+        </div><!-- end of container div -->
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" 
+                integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" 
+                crossorigin="anonymous">
+        </script>
+
+        <script type="text/javascript">
+            $("form").submit(function(e) {
                 let error = "";
-                if($("#emeil").val() == ""){
-                    error += "the emeil field is required<br>";
-                };
-                if ($("#subject").val() == "") {
-                   error +="the subject field<br>" 
+
+                if($("#email").val() == "") {
+                    error += "The email field is required<br>.";
                 }
-                if($("#content").val() == ""){
-                    error += "the content is field<br>";
-                };
-                if(error !=""){
-                    $("#error").html('<div class="alert alert-danger"'+
-                    ' role="alert"><p><strong> Error</strong></p>'+ error +'</div> ')
+
+                if($("#subject").val() == "") {
+                    error += "The subject field is required.<br>";
+                }
+
+                if($("#content").val() == "") {
+                    error += "The content field is required.<br>";
+                }
+                //test if there was an error or not
+
+                if(error != "") {
+                    $("#error").html('<div class="alert alert-danger"' +
+                    'role="alert"><p><strong>There were error(s) in your form:</strong></p>' + error + '</div>');
+
                     return false;
                 }
-                else{
+                else {  //no errors!
                     return true;
-                }
+                }//end if-else
+
             });
         </script>
-    </div>
-</body>
+
+    </body>
 </html>
+
