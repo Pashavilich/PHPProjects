@@ -5,7 +5,6 @@
 
         <script type="text/javascript">
             $(".toggleForms").click(function() {
-                //toggle the forms
                 $("#signUpForm").toggle();
                 $("#logInForm").toggle();
             });
