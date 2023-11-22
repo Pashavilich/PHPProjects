@@ -1,9 +1,9 @@
 <?php 
 
-    $link = mysqli_connect("sdb-u.hosting.stackcp.net", 
-                            "secretdiary-32313145fa", 
-                            "yvcii4u6ve", 
-                            "secretdiary-32313145fa");
+    $link = mysqli_connect("sdb-54.hosting.stackcp.net", 
+                            "Pasha1-353030360654", 
+                            "mypage12", 
+                            "Pasha1-353030360654");
 
         if(mysqli_connect_error()) {
             die("Data Connection Error");
