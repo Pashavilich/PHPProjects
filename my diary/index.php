@@ -3,9 +3,7 @@
     session_start();
     $error = "";
 
-    //db server: sdb-u.hosting.stackcp.net
-    //db name: secretdiary-32313145fa
-    //db password: yvcii4u6ve
+    
 
     if(array_key_exists("logout", $_GET)) {
         session_unset();
@@ -13,9 +11,9 @@
         $_COOKIE["id"] = "";
     }
     else if(array_key_exists("id", $_SESSION) OR array_key_exists("id", $_COOKIE)) {
-        //go to the loggedinpage if you're still logged in
+        
         header("Location: loggedinpage.php");
-    }//end test for logout query string
+    }
 
 
     if(array_key_exists("submit", $_POST)) {
@@ -64,8 +62,8 @@
     
                         header("Location: loggedinpage.php");
     
-                    }//end if for successful/failed sign up
-                }//end if mysqli_num_rows test
+                    }
+                }
             }
             else {
                 $query = "SELECT * FROM users WHERE email = '" . $emailAddress . "'";
@@ -86,17 +84,17 @@
                     }
                     else {
                         $error = "That email/password combination could not be found.";
-                    }//end else - password matches or doesn't
+                    }
                 }
                 else {
                     $error = "That email/password combination could not be found.";
                 }
-            }//end if-else for signUp == 1 or 0
-        }//end of error existing check
+            }
+        }
 
 
 
-    }//end if the submit exists
+    }
 
 ?>
 
@@ -115,7 +113,7 @@
                 ?>
             </div>
 
-            <!-- sign up form -->
+            
             <form method="post" id="signUpForm">
                 <p>Interested?  Sign up now!</p>
                 <fieldset class="form-group">
@@ -140,7 +138,7 @@
 
             </form>
 
-            <!-- log in form -->
+            
             <form method="post" id="logInForm">
                 <p>Log in using your username and password</p>
                 <fieldset class="form-group">
